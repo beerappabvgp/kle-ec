@@ -1,0 +1,152 @@
+[
+    {
+        "name": "iPhone 15 Pro",
+        "description": "The most advanced iPhone ever with A17 Pro chip, titanium design, and pro camera system with 5x Telephoto camera.",
+        "price": 999,
+        "originalPrice": 1199,
+        "discountPercentage": 17,
+        "category": "Electronics",
+        "brand": "Apple",
+        "images": [
+            "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=500",
+            "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=500&h=600",
+            "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=500&h=800"
+        ],
+        "stock": 50,
+        "tags": [
+            "smartphone",
+            "iphone",
+            "apple",
+            "5g"
+        ],
+        "specifications": {
+            "Screen Size": "6.1 inches",
+            "Storage": "128GB",
+            "Color": "Natural Titanium",
+            "Chip": "A17 Pro"
+        },
+        "isFeatured": true,
+        "rating": 4.8,
+        "reviewCount": 1250
+    },
+    {
+        "name": "MacBook Air M2",
+        "description": "Supercharged by M2, MacBook Air combines incredible performance and up to 18 hours of battery life in a strikingly thin aluminum design.",
+        "price": 1199,
+        "originalPrice": 1299,
+        "discountPercentage": 8,
+        "category": "Electronics",
+        "brand": "Apple",
+        "images": [
+            "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500",
+            "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&h=600",
+            "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&h=800"
+        ],
+        "stock": 25,
+        "tags": [
+            "laptop",
+            "macbook",
+            "apple",
+            "m2"
+        ],
+        "specifications": {
+            "Screen Size": "13.6 inches",
+            "Storage": "256GB SSD",
+            "Memory": "8GB Unified Memory",
+            "Chip": "M2"
+        },
+        "isFeatured": true,
+        "rating": 4.9,
+        "reviewCount": 890
+    },
+    {
+        "name": "Sony WH-1000XM5",
+        "description": "Industry-leading noise canceling wireless headphones with 30-hour battery life and exceptional sound quality.",
+        "price": 349,
+        "originalPrice": 399,
+        "discountPercentage": 13,
+        "category": "Electronics",
+        "brand": "Sony",
+        "images": [
+            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500",
+            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=600",
+            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=800"
+        ],
+        "stock": 75,
+        "tags": [
+            "headphones",
+            "wireless",
+            "noise-canceling",
+            "bluetooth"
+        ],
+        "specifications": {
+            "Battery Life": "30 hours",
+            "Connectivity": "Bluetooth 5.2",
+            "Weight": "250g",
+            "Noise Canceling": "Yes"
+        },
+        "isFeatured": false,
+        "rating": 4.7,
+        "reviewCount": 567
+    },
+    {
+        "name": "Nike Air Max 270",
+        "description": "The Nike Air Max 270 delivers unrivaled, all-day comfort. The shoe's design draws inspiration from Air Max icons, showcasing Nike's greatest innovation with its large window and fresh array of colors.",
+        "price": 150,
+        "originalPrice": 180,
+        "discountPercentage": 17,
+        "category": "Fashion",
+        "brand": "Nike",
+        "images": [
+            "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500",
+            "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&h=600",
+            "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&h=800"
+        ],
+        "stock": 120,
+        "tags": [
+            "shoes",
+            "sneakers",
+            "nike",
+            "athletic"
+        ],
+        "specifications": {
+            "Material": "Mesh and synthetic",
+            "Sole": "Rubber",
+            "Closure": "Lace-up",
+            "Style": "Athletic"
+        },
+        "isFeatured": false,
+        "rating": 4.5,
+        "reviewCount": 2340
+    },
+    {
+        "name": "Samsung 65\" QLED 4K TV",
+        "description": "Experience stunning picture quality with Quantum Dot technology and 4K resolution. Perfect for gaming and streaming with low input lag and high refresh rates.",
+        "price": 1299,
+        "originalPrice": 1599,
+        "discountPercentage": 19,
+        "category": "Electronics",
+        "brand": "Samsung",
+        "images": [
+            "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=500",
+            "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=500&h=600",
+            "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=500&h=800"
+        ],
+        "stock": 15,
+        "tags": [
+            "tv",
+            "4k",
+            "qled",
+            "smart-tv"
+        ],
+        "specifications": {
+            "Screen Size": "65 inches",
+            "Resolution": "4K Ultra HD",
+            "HDR": "HDR10+",
+            "Smart Features": "Tizen OS"
+        },
+        "isFeatured": true,
+        "rating": 4.6,
+        "reviewCount": 445
+    }
+]
