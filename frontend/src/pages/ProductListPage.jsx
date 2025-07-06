@@ -3,6 +3,7 @@ import { getAllProducts, deleteProduct } from '../api/products';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
+import { testAPIConnection, testProductsAPI } from '../utils/apiTest';
 
 export default function ProductListPage() {
     const [products, setProducts] = useState([]);
@@ -21,9 +22,12 @@ export default function ProductListPage() {
     async function fetchProducts(params = {}) {
         setLoading(true);
         try {
+            console.log('Fetching products with params:', params);
             const res = await getAllProducts(params);
+            console.log('Products response:', res);
             setProducts(res.data || res.products || []);
         } catch (err) {
+            console.error('Error fetching products:', err);
             setError('Failed to load products');
         } finally {
             setLoading(false);
@@ -31,6 +35,9 @@ export default function ProductListPage() {
     }
 
     useEffect(() => {
+        // Test API connection on component mount
+        testAPIConnection();
+        testProductsAPI();
         fetchProducts();
     }, []);
 

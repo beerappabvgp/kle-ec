@@ -128,6 +128,10 @@ JWT_SECRET=your-secret-key
 - **Database**: MongoDB Atlas (Connected)
 - **Port**: 5000
 
+### Frontend (Deployed on Vercel)
+- **URL**: https://kle-ec.vercel.app
+- **Status**: ✅ Live
+
 ### Testing the API
 You can test the API connection using:
 ```bash
@@ -138,6 +142,14 @@ Or manually test these endpoints:
 - Health check: `GET https://kle-ec.onrender.com/health`
 - API test: `GET https://kle-ec.onrender.com/api/test`
 - Products: `GET https://kle-ec.onrender.com/api/products`
+
+### Troubleshooting
+If you're experiencing issues with the frontend not loading products:
+
+1. **Check browser console** for any API errors
+2. **Verify CORS** - The backend allows requests from `https://kle-ec.vercel.app`
+3. **Test API directly** using the test endpoints above
+4. **Check network tab** in browser dev tools to see if API calls are being made
 
 ## API Endpoints
 

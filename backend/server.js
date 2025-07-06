@@ -39,7 +39,8 @@ app.use(cors({
             'https://kle-ec-frontend.onrender.com',
             'https://kle-ec.vercel.app',
             'https://kle-ec.netlify.app',
-            'https://kle-ec.onrender.com'
+            'https://kle-ec.onrender.com',
+            'https://kle-ec.vercel.app'
         ];
 
         if (allowedOrigins.indexOf(origin) !== -1) {
