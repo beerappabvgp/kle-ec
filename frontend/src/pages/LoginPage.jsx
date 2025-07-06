@@ -16,7 +16,9 @@ export default function LoginPage() {
         setLoading(true);
         setError('');
         try {
-            await login(formData.email, formData.password);
+            const res = await loginApi({ email: formData.email, password: formData.password });
+            const { token } = res.data;
+            await login(token);
             setLoading(false);
             navigate('/products');
         } catch (err) {
