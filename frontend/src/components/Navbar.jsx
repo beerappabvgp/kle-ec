@@ -89,6 +89,15 @@ export default function Navbar() {
                                 <span className="hidden lg:inline font-medium text-black dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">Profile</span>
                             </Link>
                         )}
+                        {token && (
+                            <button onClick={logout} className="btn-secondary px-4 py-1.5">Logout</button>
+                        )}
+                        {!token && (
+                            <>
+                                <Link to="/login" className="btn-primary px-4 py-1.5">Login</Link>
+                                <Link to="/signup" className="btn-secondary px-4 py-1.5">Sign Up</Link>
+                            </>
+                        )}
                         <button
                             className="ml-2 p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none"
                             onClick={toggleDarkMode}
@@ -160,6 +169,15 @@ export default function Navbar() {
                                     Profile
                                 </span>
                             </Link>
+                        )}
+                        {token && (
+                            <button onClick={() => { logout(); setMenuOpen(false); }} className="btn-secondary w-full text-center mt-2">Logout</button>
+                        )}
+                        {!token && (
+                            <>
+                                <Link to="/login" className="block btn-primary w-full text-center mt-2" onClick={() => setMenuOpen(false)}>Login</Link>
+                                <Link to="/signup" className="block btn-secondary w-full text-center mt-2" onClick={() => setMenuOpen(false)}>Sign Up</Link>
+                            </>
                         )}
                         <button
                             className="w-full mt-2 p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none"
