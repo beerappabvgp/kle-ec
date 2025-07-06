@@ -22,6 +22,7 @@
         "test": "npm run test:frontend && npm run test:backend",
         "test:frontend": "cd frontend && npm run test",
         "test:backend": "cd backend && npm run test",
+        "test:api": "node test-api.js",
         "seed": "cd backend && npm run seed",
         "setup": "npm run install:all && npm run seed"
     },

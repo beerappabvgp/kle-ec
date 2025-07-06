@@ -26,6 +26,15 @@ A full-stack e-commerce application built with React frontend and Node.js backen
    npm run dev
    ```
 
+**Note**: If you encounter "concurrently: not found" error, install it globally:
+```bash
+npm install -g concurrently
+```
+Or install it locally in the root directory:
+```bash
+npm install concurrently
+```
+
 ## Available Scripts
 
 ### Root Level Scripts (package.json)
@@ -101,7 +110,7 @@ ecommerce/
 
 ### Frontend (.env)
 ```
-VITE_API_URL=http://localhost:5000/api
+VITE_API_URL=https://kle-ec.onrender.com/api
 ```
 
 ### Backend (.env)
@@ -110,6 +119,25 @@ PORT=5000
 MONGODB_URI=mongodb://localhost:27017/ecommerce
 JWT_SECRET=your-secret-key
 ```
+
+## Deployment
+
+### Backend (Deployed on Render)
+- **URL**: https://kle-ec.onrender.com
+- **Status**: ✅ Live
+- **Database**: MongoDB Atlas (Connected)
+- **Port**: 5000
+
+### Testing the API
+You can test the API connection using:
+```bash
+npm run test:api
+```
+
+Or manually test these endpoints:
+- Health check: `GET https://kle-ec.onrender.com/health`
+- API test: `GET https://kle-ec.onrender.com/api/test`
+- Products: `GET https://kle-ec.onrender.com/api/products`
 
 ## API Endpoints
 
