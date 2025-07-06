@@ -264,6 +264,41 @@ async function rateProduct(productId, userId, ratingValue) {
     return updated;
 }
 
+async function getReviews(productId) {
+    const product = await Product.findById(productId).populate('reviews.user', 'name email');
+    if (!product) throw new Error('Product not found');
+    return product.reviews;
+}
+
+async function addOrUpdateReview(productId, userId, rating, comment) {
+    const product = await Product.findById(productId);
+    if (!product) throw new Error('Product not found');
+    // Check if user already reviewed
+    const existing = product.reviews.find(r => r.user.toString() === userId);
+    if (existing) {
+        existing.rating = rating;
+        existing.comment = comment;
+        existing.createdAt = new Date();
+    } else {
+        product.reviews.push({ user: userId, rating, comment });
+    }
+    await product.save();
+    return product.reviews;
+}
+
+async function deleteReview(productId, userId, reviewId) {
+    const product = await Product.findById(productId);
+    if (!product) throw new Error('Product not found');
+    const review = product.reviews.id(reviewId);
+    if (!review) throw new Error('Review not found');
+    // Only author or product creator can delete
+    if (review.user.toString() !== userId && product.createdBy.toString() !== userId) {
+        throw new Error('Not authorized to delete this review');
+    }
+    review.remove();
+    await product.save();
+}
+
 module.exports = {
     createProduct,
     getAllProducts,
@@ -272,5 +307,8 @@ module.exports = {
     updateProduct,
     deleteProduct,
     hardDeleteProduct,
-    rateProduct
+    rateProduct,
+    getReviews,
+    addOrUpdateReview,
+    deleteReview
 }; 

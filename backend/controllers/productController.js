@@ -160,6 +160,44 @@ const rateProduct = async (req, res) => {
     }
 };
 
+// @desc    Get all reviews for a product
+// @route   GET /api/products/:id/reviews
+// @access  Private
+const getReviews = async (req, res) => {
+    try {
+        const reviews = await productService.getReviews(req.params.id);
+        res.status(200).json({ success: true, data: reviews });
+    } catch (error) {
+        res.status(404).json({ success: false, message: error.message });
+    }
+};
+
+// @desc    Add or update a review for a product
+// @route   POST /api/products/:id/reviews
+// @access  Private
+const addOrUpdateReview = async (req, res) => {
+    try {
+        const { rating, comment } = req.body;
+        if (!rating) throw new Error('Rating is required');
+        const review = await productService.addOrUpdateReview(req.params.id, req.user.id, rating, comment);
+        res.status(200).json({ success: true, data: review });
+    } catch (error) {
+        res.status(400).json({ success: false, message: error.message });
+    }
+};
+
+// @desc    Delete a review
+// @route   DELETE /api/products/:id/reviews/:reviewId
+// @access  Private
+const deleteReview = async (req, res) => {
+    try {
+        await productService.deleteReview(req.params.id, req.user.id, req.params.reviewId);
+        res.status(200).json({ success: true, message: 'Review deleted' });
+    } catch (error) {
+        res.status(400).json({ success: false, message: error.message });
+    }
+};
+
 module.exports = {
     createProduct,
     getAllProducts,
@@ -168,5 +206,8 @@ module.exports = {
     updateProduct,
     deleteProduct,
     hardDeleteProduct,
-    rateProduct
+    rateProduct,
+    getReviews,
+    addOrUpdateReview,
+    deleteReview
 }; 

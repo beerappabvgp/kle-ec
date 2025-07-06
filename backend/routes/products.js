@@ -7,32 +7,28 @@ const {
     updateProduct,
     deleteProduct,
     hardDeleteProduct,
-    rateProduct
+    rateProduct,
+    getReviews,
+    addOrUpdateReview,
+    deleteReview
 } = require('../controllers/productController');
 const auth = require('../middleware/auth');
 
 const router = express.Router();
 
-// All routes are protected
+// Public routes
+router.get('/', getAllProducts);
+router.get('/:id', getProduct);
+router.get('/:id/reviews', getReviews);
+
+// Protected routes
 router.use(auth);
 
-// Product routes
-router.route('/')
-    .get(getAllProducts)
-    .post(createProduct);
-
-router.route('/:id')
-    .get(getProduct)
-    .put(updateProduct)
-    .delete(deleteProduct);
-
-// Product details route (for customers)
-router.get('/:id/details', getProductDetails);
-
-// Hard delete route
-router.delete('/:id/hard', hardDeleteProduct);
-
-// Rate a product
+router.post('/', createProduct);
+router.put('/:id', updateProduct);
+router.delete('/:id', deleteProduct);
 router.post('/:id/rate', rateProduct);
+router.post('/:id/reviews', addOrUpdateReview);
+router.delete('/:id/reviews/:reviewId', deleteReview);
 
 module.exports = router; 
