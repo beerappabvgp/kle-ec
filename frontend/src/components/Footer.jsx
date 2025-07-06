@@ -3,17 +3,17 @@ import React from 'react';
 export default function Footer() {
     return (
         <footer className="w-full bg-gradient-to-r from-blue-950 via-black to-blue-900 dark:from-black dark:via-gray-900 dark:to-blue-950 text-white py-8 mt-12 border-t border-blue-900 dark:border-gray-800">
-            <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
-                <div className="flex flex-col items-center md:items-start">
+            <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8 md:gap-6">
+                <div className="flex flex-col items-center md:items-start mb-4 md:mb-0">
                     <span className="text-2xl font-bold tracking-wide text-blue-400 mb-2">ShopEase</span>
                     <span className="text-sm text-gray-300">&copy; {new Date().getFullYear()} ShopEase. All rights reserved.</span>
                 </div>
-                <div className="flex flex-col md:flex-row items-center gap-4">
-                    <a href="/" className="hover:text-blue-400 transition-colors">Home</a>
-                    <a href="/products" className="hover:text-blue-400 transition-colors">Products</a>
-                    <a href="/cart" className="hover:text-blue-400 transition-colors">Cart</a>
-                    <a href="/orders" className="hover:text-blue-400 transition-colors">Orders</a>
-                    <a href="/about" className="hover:text-blue-400 transition-colors">About</a>
+                <div className="flex flex-col sm:flex-row md:flex-row items-center gap-4 sm:gap-6 md:gap-4">
+                    <a href="/" className="hover:text-blue-400 transition-colors text-base py-1">Home</a>
+                    <a href="/products" className="hover:text-blue-400 transition-colors text-base py-1">Products</a>
+                    <a href="/cart" className="hover:text-blue-400 transition-colors text-base py-1">Cart</a>
+                    <a href="/orders" className="hover:text-blue-400 transition-colors text-base py-1">Orders</a>
+                    <a href="/about" className="hover:text-blue-400 transition-colors text-base py-1">About</a>
                 </div>
                 <div className="flex items-center gap-4">
                     <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="hover:text-blue-400 transition-colors">

@@ -59,9 +59,9 @@ export default function ProfilePage() {
     }
 
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center bg-white dark:bg-black text-black dark:text-white py-10 px-4">
-            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-8 w-full max-w-md flex flex-col items-center border border-gray-200 dark:border-gray-800">
-                <h1 className="text-2xl font-bold mb-6 dark:text-white">My Profile</h1>
+        <div className="min-h-screen w-full bg-white dark:bg-black text-black dark:text-white py-6 px-2 sm:px-4">
+            <div className="max-w-2xl mx-auto">
+                <h1 className="text-2xl sm:text-3xl font-bold mb-6 dark:text-white">My Profile</h1>
                 <div className="mb-6 flex flex-col items-center">
                     <img
                         src={photoURL && photoURL.startsWith('data:') ? photoURL : (photoURL ? photoURL : defaultAvatar)}

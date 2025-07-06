@@ -103,9 +103,9 @@ export default function CheckoutPage() {
     }
 
     return (
-        <div className="min-h-screen w-full bg-white dark:bg-black text-black dark:text-white py-10 px-2 sm:px-4 flex items-center justify-center">
-            <div className="w-full max-w-5xl mx-auto">
-                <h1 className="text-3xl font-bold mb-8 dark:text-white text-center sm:text-left">Checkout</h1>
+        <div className="min-h-screen w-full bg-white dark:bg-black text-black dark:text-white py-6 px-2 sm:px-4">
+            <div className="max-w-3xl mx-auto">
+                <h1 className="text-2xl sm:text-3xl font-bold mb-6 dark:text-white">Checkout</h1>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
                     {/* Shipping Address */}
                     <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-8 flex flex-col gap-6 border border-gray-100 dark:border-gray-800">

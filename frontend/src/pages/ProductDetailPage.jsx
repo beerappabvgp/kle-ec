@@ -74,8 +74,8 @@ export default function ProductDetailPage() {
     return (
         <div className="min-h-screen flex flex-col bg-white dark:bg-black text-black dark:text-white">
             {/* Top controls: Back link and admin buttons */}
-            <div className="max-w-5xl w-full mx-auto pt-8 px-4 flex flex-col gap-4">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="max-w-5xl w-full mx-auto pt-6 sm:pt-8 px-2 sm:px-4 flex flex-col gap-4">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
                     <Link to="/products" className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors text-base font-medium">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
@@ -108,11 +108,11 @@ export default function ProductDetailPage() {
             </div>
 
             {/* Main Content */}
-            <div className="flex-1 w-full py-8 px-2 sm:px-4">
+            <div className="flex-1 w-full py-6 sm:py-8 px-2 sm:px-4">
                 <div className="max-w-5xl mx-auto">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-start">
                         {/* Image Gallery */}
-                        <div className="flex flex-col items-center gap-4">
+                        <div className="flex flex-col items-center gap-3 sm:gap-4">
                             {product.images && product.images.length > 0 ? (
                                 <>
                                     <div className="rounded-2xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 max-w-md max-h-96 w-full flex items-center justify-center">
@@ -155,7 +155,7 @@ export default function ProductDetailPage() {
                         </div>
 
                         {/* Product Information */}
-                        <div className="space-y-8 px-2">
+                        <div className="flex flex-col gap-4 sm:gap-6">
                             {/* Category Badge */}
                             {product.category && (
                                 <div>

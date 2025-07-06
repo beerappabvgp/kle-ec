@@ -101,13 +101,13 @@ export default function ProductListPage() {
     }
 
     return (
-        <div className="min-h-screen w-full bg-white dark:bg-black text-black dark:text-white py-10 px-2 sm:px-4">
+        <div className="min-h-screen w-full bg-white dark:bg-black text-black dark:text-white py-6 px-2 sm:px-4">
             <div className="max-w-6xl mx-auto">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 gap-4 w-full">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4 w-full">
                     {/* Left: All Products */}
-                    <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white whitespace-nowrap flex-1 text-left">All Products</h1>
+                    <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white whitespace-nowrap flex-1 text-left">All Products</h1>
                     {/* Center: Filters */}
-                    <div className="flex flex-col sm:flex-row gap-2 items-center justify-center flex-1">
+                    <div className="flex flex-col sm:flex-row gap-2 items-center justify-center flex-1 w-full">
                         <input
                             type="text"
                             value={search}
@@ -118,7 +118,7 @@ export default function ProductListPage() {
                         <select
                             value={category}
                             onChange={handleCategoryChange}
-                            className="px-4 py-2 text-base focus:ring-2 focus:ring-blue-400 focus:outline-none min-w-[140px] rounded-md shadow-sm bg-transparent border border-gray-300 dark:border-gray-700"
+                            className="px-4 py-2 text-base focus:ring-2 focus:ring-blue-400 focus:outline-none min-w-[120px] rounded-md shadow-sm bg-transparent border border-gray-300 dark:border-gray-700"
                         >
                             <option value="">All Categories</option>
                             <option value="Electronics">Electronics</option>
@@ -131,7 +131,7 @@ export default function ProductListPage() {
                             onChange={handleMinPriceChange}
                             onBlur={handlePriceBlur}
                             placeholder="Min Price"
-                            className="px-3 py-2 text-base focus:ring-2 focus:ring-blue-400 focus:outline-none w-28 rounded-md shadow-sm bg-transparent border border-gray-300 dark:border-gray-700 appearance-none no-spinner"
+                            className="px-3 py-2 text-base focus:ring-2 focus:ring-blue-400 focus:outline-none w-24 sm:w-28 rounded-md shadow-sm bg-transparent border border-gray-300 dark:border-gray-700 appearance-none no-spinner"
                             inputMode="numeric"
                             pattern="[0-9]*"
                         />
@@ -142,7 +142,7 @@ export default function ProductListPage() {
                             onChange={handleMaxPriceChange}
                             onBlur={handlePriceBlur}
                             placeholder="Max Price"
-                            className="px-3 py-2 text-base focus:ring-2 focus:ring-blue-400 focus:outline-none w-28 rounded-md shadow-sm bg-transparent border border-gray-300 dark:border-gray-700 appearance-none no-spinner"
+                            className="px-3 py-2 text-base focus:ring-2 focus:ring-blue-400 focus:outline-none w-24 sm:w-28 rounded-md shadow-sm bg-transparent border border-gray-300 dark:border-gray-700 appearance-none no-spinner"
                             inputMode="numeric"
                             pattern="[0-9]*"
                         />
@@ -158,7 +158,7 @@ export default function ProductListPage() {
                     </div>
                     {/* Right: Add Product */}
                     <div className="flex-1 flex justify-end">
-                        <Link to="/products/new" className="btn-primary flex items-center gap-2 text-base px-5 py-2 shadow-sm whitespace-nowrap h-[44px] sm:h-auto"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg> Add Product</Link>
+                        <Link to="/products/new" className="btn-primary flex items-center gap-2 text-base px-4 py-2 shadow-sm whitespace-nowrap h-[44px] sm:h-auto"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg> Add Product</Link>
                     </div>
                 </div>
                 {loading ? (
@@ -166,21 +166,21 @@ export default function ProductListPage() {
                 ) : error ? (
                     <div className="text-center text-red-500 py-10">{error}</div>
                 ) : (
-                    <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-8">
+                    <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mt-6">
                         {products.map(product => (
                             <div
                                 key={product._id}
-                                className="bg-white/90 dark:bg-gray-900/80 border border-gray-200 dark:border-gray-800 rounded-xl shadow-md p-4 flex flex-col justify-between group transition-all duration-200 cursor-pointer hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-500"
+                                className="bg-white/90 dark:bg-gray-900/80 border border-gray-200 dark:border-gray-800 rounded-xl shadow-md p-3 sm:p-4 flex flex-col justify-between group transition-all duration-200 cursor-pointer hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-500"
                                 onClick={() => navigate(`/products/${product._id}`)}
                             >
                                 <div>
                                     {product.images && product.images.length > 0 ? (
-                                        <img src={product.images[0]} alt={product.name} className="w-full h-40 object-cover rounded-lg mb-3 shadow-sm bg-white dark:bg-black" />
+                                        <img src={product.images[0]} alt={product.name} className="w-full h-36 sm:h-40 object-cover rounded-lg mb-3 shadow-sm bg-white dark:bg-black" />
                                     ) : (
-                                        <div className="w-full h-40 flex items-center justify-center rounded-lg mb-3 bg-white dark:bg-black text-black dark:text-white opacity-40">No Image</div>
+                                        <div className="w-full h-36 sm:h-40 flex items-center justify-center rounded-lg mb-3 bg-white dark:bg-black text-black dark:text-white opacity-40">No Image</div>
                                     )}
                                     <div className="flex items-center justify-between mb-2">
-                                        <h2 className="text-lg font-semibold dark:text-white truncate max-w-[70%]">{product.name}</h2>
+                                        <h2 className="text-base sm:text-lg font-semibold dark:text-white truncate max-w-[70%]">{product.name}</h2>
                                         <span className="inline-block px-2 py-0.5 rounded text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-800 ml-2">${product.price}</span>
                                     </div>
                                     <div className="flex items-center gap-1 mb-3">
@@ -201,10 +201,10 @@ export default function ProductListPage() {
                                             {product.ratingsCount > 0 ? `(${product.ratingsCount})` : 'No ratings yet'}
                                         </span>
                                     </div>
-                                    <p className="mb-4 text-gray-700 dark:text-gray-200 text-sm line-clamp-2 min-h-[2.2em]">{product.description}</p>
+                                    <p className="mb-4 text-gray-700 dark:text-gray-200 text-xs sm:text-sm line-clamp-2 min-h-[2.2em]">{product.description}</p>
                                 </div>
                                 <div className="flex items-center justify-between mt-4 gap-2" onClick={e => e.stopPropagation()}>
-                                    <Link to={`/products/${product._id}`} className="text-blue-600 dark:text-blue-400 text-sm font-medium hover:underline flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4"><path strokeLinecap="round" strokeLinejoin="round" d="M15 12h.01M12 15h.01M9 12h.01M12 9h.01M12 12h.01" /></svg>View Details</Link>
+                                    <Link to={`/products/${product._id}`} className="text-blue-600 dark:text-blue-400 text-xs sm:text-sm font-medium hover:underline flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4"><path strokeLinecap="round" strokeLinejoin="round" d="M15 12h.01M12 15h.01M9 12h.01M12 9h.01M12 12h.01" /></svg>View Details</Link>
                                     {token && (
                                         <button
                                             className="rounded-full bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-300 p-2 hover:bg-blue-100 dark:hover:bg-blue-800 transition-colors shadow-sm"

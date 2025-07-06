@@ -83,34 +83,34 @@ export default function LandingPage() {
     return (
         <div className="min-h-screen w-full">
             {/* Hero Section */}
-            <section id="home" className="py-20">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section id="home" className="py-14 sm:py-20">
+                <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
                     <div className="text-center">
-                        <h1 className="text-5xl md:text-6xl font-bold mb-6">
+                        <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6">
                             Discover Amazing
                             <span className="text-blue-600 dark:text-blue-400"> Products</span>
                         </h1>
-                        <p className="text-xl mb-8 max-w-3xl mx-auto">
+                        <p className="text-base sm:text-xl mb-6 sm:mb-8 max-w-3xl mx-auto">
                             Shop the latest trends in electronics, fashion, home essentials, and more.
                             Get the best deals with fast delivery and excellent customer service.
                         </p>
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <button className="btn-primary text-lg px-8 py-3">Start Shopping</button>
-                            <button className="btn-secondary text-lg px-8 py-3">Learn More</button>
+                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+                            <button className="btn-primary text-base sm:text-lg px-6 sm:px-8 py-3">Start Shopping</button>
+                            <button className="btn-secondary text-base sm:text-lg px-6 sm:px-8 py-3">Learn More</button>
                         </div>
                     </div>
                 </div>
             </section>
 
             {/* Features Section */}
-            <section className="py-16">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <section className="py-10 sm:py-16">
+                <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
                         {features.map((feature, idx) => (
                             <div key={idx} className="text-center card">
-                                <div className="text-4xl mb-4">{feature.icon}</div>
-                                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                                <p>{feature.description}</p>
+                                <div className="text-3xl sm:text-4xl mb-2 sm:mb-4">{feature.icon}</div>
+                                <h3 className="text-lg sm:text-xl font-semibold mb-1 sm:mb-2">{feature.title}</h3>
+                                <p className="text-sm sm:text-base">{feature.description}</p>
                             </div>
                         ))}
                     </div>
@@ -118,20 +118,20 @@ export default function LandingPage() {
             </section>
 
             {/* Categories Section */}
-            <section id="categories" className="py-16">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl font-bold mb-4">Shop by Category</h2>
-                        <p className="max-w-2xl mx-auto">
+            <section id="categories" className="py-10 sm:py-16">
+                <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+                    <div className="text-center mb-8 sm:mb-12">
+                        <h2 className="text-2xl sm:text-3xl font-bold mb-2 sm:mb-4">Shop by Category</h2>
+                        <p className="max-w-2xl mx-auto text-sm sm:text-base">
                             Explore our wide range of products across different categories
                         </p>
                     </div>
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
                         {categories.map((category, idx) => (
                             <div key={idx} className="card text-center hover:shadow-lg transition-shadow cursor-pointer">
-                                <div className="text-3xl mb-3">{category.icon}</div>
-                                <h3 className="font-semibold mb-1">{category.name}</h3>
-                                <p className="text-sm">{category.count}</p>
+                                <div className="text-2xl sm:text-3xl mb-1 sm:mb-3">{category.icon}</div>
+                                <h3 className="font-semibold mb-0.5 sm:mb-1 text-sm sm:text-base">{category.name}</h3>
+                                <p className="text-xs sm:text-sm">{category.count}</p>
                             </div>
                         ))}
                     </div>
@@ -139,25 +139,20 @@ export default function LandingPage() {
             </section>
 
             {/* Testimonials Section */}
-            <section className="py-16">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl font-bold mb-4">What Our Customers Say</h2>
-                        <p>Don't just take our word for it</p>
+            <section className="py-10 sm:py-16">
+                <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+                    <div className="text-center mb-8 sm:mb-12">
+                        <h2 className="text-2xl sm:text-3xl font-bold mb-2 sm:mb-4">What Our Customers Say</h2>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {testimonials.map((testimonial, idx) => (
-                            <div key={idx} className="card">
-                                <div className="flex mb-4">
-                                    {[...Array(testimonial.rating)].map((_, i) => (
-                                        <span key={i} className="text-yellow-400">⭐</span>
-                                    ))}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+                        {testimonials.map((t, idx) => (
+                            <div key={idx} className="card text-center">
+                                <div className="flex justify-center mb-2">
+                                    <span className="text-2xl">{Array(t.rating).fill('⭐').join('')}</span>
                                 </div>
-                                <p className="mb-4">"{testimonial.content}"</p>
-                                <div>
-                                    <p className="font-semibold">{testimonial.name}</p>
-                                    <p className="text-sm">{testimonial.role}</p>
-                                </div>
+                                <p className="text-sm sm:text-base mb-2">"{t.content}"</p>
+                                <div className="font-semibold text-sm sm:text-base">- {t.name}</div>
+                                <div className="text-xs text-gray-400">{t.role}</div>
                             </div>
                         ))}
                     </div>

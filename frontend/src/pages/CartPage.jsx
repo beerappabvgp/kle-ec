@@ -13,9 +13,9 @@ export default function CartPage() {
     const total = cart?.items?.reduce((sum, item) => sum + (item.product.price * item.quantity), 0) || 0;
 
     return (
-        <div className="min-h-screen w-full bg-white dark:bg-black text-black dark:text-white py-10 px-2 sm:px-4">
+        <div className="min-h-screen w-full bg-white dark:bg-black text-black dark:text-white py-6 px-2 sm:px-4">
             <div className="max-w-3xl mx-auto">
-                <h1 className="text-3xl font-bold mb-8 dark:text-white text-center sm:text-left">Your Cart</h1>
+                <h1 className="text-2xl sm:text-3xl font-bold mb-6 dark:text-white">My Cart</h1>
                 {loading ? (
                     <div className="text-center py-10 text-lg">Loading cart...</div>
                 ) : error ? (

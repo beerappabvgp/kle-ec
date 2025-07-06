@@ -27,8 +27,9 @@ export default function LoginPage() {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center">
-            <div className="w-full max-w-md">
+        <div className="min-h-screen w-full bg-white dark:bg-black text-black dark:text-white py-6 px-2 sm:px-4 flex items-center justify-center">
+            <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-800">
+                <h1 className="text-2xl sm:text-3xl font-bold mb-6 dark:text-white text-center">Login</h1>
                 {signupSuccess && (
                     <div className="mb-4 p-3 rounded bg-green-100 text-green-800 text-center dark:bg-green-900 dark:text-green-200">
                         Signup successful! Please log in.
