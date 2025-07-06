@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { getProduct, deleteProduct, rateProduct } from '../api/products';
+import { getProduct, deleteProduct, rateProduct, getProductReviews, addOrUpdateProductReview, deleteProductReview } from '../api/products';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import defaultProductImage from '../assets/default-product.svg';
@@ -17,6 +17,15 @@ export default function ProductDetailPage() {
     const [submittingRating, setSubmittingRating] = useState(false);
     const [userRating, setUserRating] = useState(null);
     const [hoverRating, setHoverRating] = useState(null);
+
+    // Review states
+    const [reviews, setReviews] = useState([]);
+    const [reviewsLoading, setReviewsLoading] = useState(false);
+    const [userReview, setUserReview] = useState(null);
+    const [showReviewForm, setShowReviewForm] = useState(false);
+    const [reviewForm, setReviewForm] = useState({ rating: 5, comment: '' });
+    const [submittingReview, setSubmittingReview] = useState(false);
+    const [editingReview, setEditingReview] = useState(false);
 
     useEffect(() => {
         async function fetchProduct() {
@@ -39,6 +48,29 @@ export default function ProductDetailPage() {
             }
         }
         fetchProduct();
+    }, [id, token]);
+
+    useEffect(() => {
+        async function fetchReviews() {
+            setReviewsLoading(true);
+            try {
+                const res = await getProductReviews(id);
+                setReviews(res.data || []);
+                // Find user's review if logged in
+                if (token) {
+                    const myReview = res.data?.find(r => r.user._id === window.userId || r.user._id === (window.user && window.user._id));
+                    setUserReview(myReview || null);
+                    if (myReview) {
+                        setReviewForm({ rating: myReview.rating, comment: myReview.comment });
+                    }
+                }
+            } catch (err) {
+                console.error('Failed to load reviews:', err);
+            } finally {
+                setReviewsLoading(false);
+            }
+        }
+        fetchReviews();
     }, [id, token]);
 
     async function handleDelete() {
@@ -64,6 +96,63 @@ export default function ProductDetailPage() {
             alert('Failed to submit rating');
         } finally {
             setSubmittingRating(false);
+        }
+    }
+
+    async function handleSubmitReview() {
+        if (!token || submittingReview) return;
+        setSubmittingReview(true);
+        try {
+            await addOrUpdateProductReview(id, reviewForm);
+            // Refetch reviews
+            const res = await getProductReviews(id);
+            setReviews(res.data || []);
+            // Update user review
+            const myReview = res.data?.find(r => r.user._id === window.userId || r.user._id === (window.user && window.user._id));
+            setUserReview(myReview || null);
+            setShowReviewForm(false);
+            setEditingReview(false);
+            // Refetch product to update average rating
+            const productRes = await getProduct(id);
+            setProduct(productRes.data || productRes.product);
+        } catch (err) {
+            alert('Failed to submit review');
+        } finally {
+            setSubmittingReview(false);
+        }
+    }
+
+    async function handleDeleteReview(reviewId) {
+        if (!window.confirm('Are you sure you want to delete this review?')) return;
+        try {
+            await deleteProductReview(id, reviewId);
+            // Refetch reviews
+            const res = await getProductReviews(id);
+            setReviews(res.data || []);
+            setUserReview(null);
+            setShowReviewForm(false);
+            setEditingReview(false);
+            setReviewForm({ rating: 5, comment: '' });
+            // Refetch product to update average rating
+            const productRes = await getProduct(id);
+            setProduct(productRes.data || productRes.product);
+        } catch (err) {
+            alert('Failed to delete review');
+        }
+    }
+
+    function handleEditReview() {
+        setEditingReview(true);
+        setShowReviewForm(true);
+    }
+
+    function handleCancelReview() {
+        setShowReviewForm(false);
+        setEditingReview(false);
+        if (userReview) {
+            setReviewForm({ rating: userReview.rating, comment: userReview.comment });
+        } else {
+            setReviewForm({ rating: 5, comment: '' });
         }
     }
 
@@ -273,6 +362,169 @@ export default function ProductDetailPage() {
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    {/* Reviews Section */}
+                    <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+                            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+                                Customer Reviews ({reviews.length})
+                            </h2>
+                            {token && !userReview && !showReviewForm && (
+                                <button
+                                    onClick={() => setShowReviewForm(true)}
+                                    className="btn-primary flex items-center gap-2 px-4 py-2 text-sm"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                    </svg>
+                                    Write a Review
+                                </button>
+                            )}
+                        </div>
+
+                        {/* Review Form */}
+                        {showReviewForm && (
+                            <div className="mb-8 p-6 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
+                                <div className="flex items-center justify-between mb-4">
+                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                                        {editingReview ? 'Edit Your Review' : 'Write a Review'}
+                                    </h3>
+                                    <button
+                                        onClick={handleCancelReview}
+                                        className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div className="space-y-4">
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Rating</label>
+                                        <div className="flex items-center gap-1">
+                                            {[1, 2, 3, 4, 5].map(star => (
+                                                <button
+                                                    key={star}
+                                                    onClick={() => setReviewForm({ ...reviewForm, rating: star })}
+                                                    className="text-2xl hover:scale-110 transition-transform"
+                                                >
+                                                    <svg
+                                                        className={`w-8 h-8 ${reviewForm.rating >= star ? 'text-yellow-400' : 'text-gray-300'}`}
+                                                        fill="currentColor"
+                                                        viewBox="0 0 20 20"
+                                                    >
+                                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.178c.969 0 1.371 1.24.588 1.81l-3.385 2.46a1 1 0 00-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118l-3.385-2.46a1 1 0 00-1.175 0l-3.385 2.46c-.784.57-1.838-.196-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118l-3.385-2.46c-.783-.57-.38-1.81.588-1.81h4.178a1 1 0 00.95-.69l1.286-3.967z" />
+                                                    </svg>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Comment</label>
+                                        <textarea
+                                            value={reviewForm.comment}
+                                            onChange={(e) => setReviewForm({ ...reviewForm, comment: e.target.value })}
+                                            placeholder="Share your experience with this product..."
+                                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 resize-none"
+                                            rows="4"
+                                            required
+                                        />
+                                    </div>
+                                    <div className="flex gap-3">
+                                        <button
+                                            onClick={handleSubmitReview}
+                                            disabled={submittingReview || !reviewForm.comment.trim()}
+                                            className="btn-primary px-6 py-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                                        >
+                                            {submittingReview ? 'Submitting...' : (editingReview ? 'Update Review' : 'Submit Review')}
+                                        </button>
+                                        <button
+                                            onClick={handleCancelReview}
+                                            className="px-6 py-2 text-sm border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Reviews List */}
+                        {reviewsLoading ? (
+                            <div className="text-center py-8 text-gray-500 dark:text-gray-400">Loading reviews...</div>
+                        ) : reviews.length === 0 ? (
+                            <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12 mx-auto mb-4 text-gray-400">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+                                </svg>
+                                <p className="text-lg font-medium">No reviews yet</p>
+                                <p className="text-sm">Be the first to review this product!</p>
+                            </div>
+                        ) : (
+                            <div className="space-y-6">
+                                {reviews.map((review) => (
+                                    <div key={review._id} className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+                                        <div className="flex items-start justify-between mb-4">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
+                                                    <span className="text-sm font-semibold text-blue-600 dark:text-blue-400">
+                                                        {review.user.name ? review.user.name.charAt(0).toUpperCase() : 'U'}
+                                                    </span>
+                                                </div>
+                                                <div>
+                                                    <h4 className="font-semibold text-gray-900 dark:text-white">
+                                                        {review.user.name || 'Anonymous User'}
+                                                    </h4>
+                                                    <div className="flex items-center gap-2">
+                                                        <div className="flex items-center">
+                                                            {[1, 2, 3, 4, 5].map(star => (
+                                                                <svg
+                                                                    key={star}
+                                                                    className={`w-4 h-4 ${review.rating >= star ? 'text-yellow-400' : 'text-gray-300'}`}
+                                                                    fill="currentColor"
+                                                                    viewBox="0 0 20 20"
+                                                                >
+                                                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.178c.969 0 1.371 1.24.588 1.81l-3.385 2.46a1 1 0 00-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118l-3.385-2.46a1 1 0 00-1.175 0l-3.385 2.46c-.784.57-1.838-.196-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118l-3.385-2.46c-.783-.57-.38-1.81.588-1.81h4.178a1 1 0 00.95-.69l1.286-3.967z" />
+                                                                </svg>
+                                                            ))}
+                                                        </div>
+                                                        <span className="text-sm text-gray-500 dark:text-gray-400">
+                                                            {new Date(review.createdAt).toLocaleDateString()}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {token && (review.user._id === window.userId || review.user._id === (window.user && window.user._id)) && (
+                                                <div className="flex gap-2">
+                                                    <button
+                                                        onClick={handleEditReview}
+                                                        className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 p-1"
+                                                        title="Edit review"
+                                                    >
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                                        </svg>
+                                                    </button>
+                                                    <button
+                                                        onClick={() => handleDeleteReview(review._id)}
+                                                        className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 p-1"
+                                                        title="Delete review"
+                                                    >
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <p className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line">
+                                            {review.comment}
+                                        </p>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

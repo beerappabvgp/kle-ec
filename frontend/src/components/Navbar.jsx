@@ -67,35 +67,25 @@ export default function Navbar() {
                         )}
                     </div>
                     {/* Auth + Cart + Dark Mode Buttons (Desktop) */}
-                    <div className="hidden md:flex items-center space-x-2 lg:space-x-4">
-                        {token && (
-                            <Link to="/cart" className="relative flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7 text-black dark:text-white">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.836l.272 1.017M6.75 6h14.25l-1.5 9H7.5m0 0L6.75 6m.75 9a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5zm10.5 0a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z" />
-                                </svg>
-                                {cartCount > 0 && (
-                                    <span className="absolute -top-1 -right-2 bg-red-500 text-white text-xs rounded-full px-1.5 py-0.5 font-bold shadow border border-white dark:border-black">{cartCount}</span>
-                                )}
-                            </Link>
-                        )}
-                        {token && (
-                            <Link to="/profile" className="flex items-center gap-2 group">
-                                <img
-                                    src={user && user.profilePhoto ? user.profilePhoto : defaultAvatar}
-                                    alt="Profile"
-                                    className="w-8 h-8 rounded-full object-cover border-2 border-blue-200 dark:border-blue-900 bg-white dark:bg-gray-900 shadow group-hover:ring-2 group-hover:ring-blue-400 transition-all"
-                                    onError={e => { e.target.onerror = null; e.target.src = defaultAvatar; }}
-                                />
-                                <span className="hidden lg:inline font-medium text-black dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">Profile</span>
-                            </Link>
-                        )}
-                        {token && (
-                            <button onClick={logout} className="btn-secondary px-4 py-1.5">Logout</button>
-                        )}
+                    <div className="flex items-center space-x-2 lg:space-x-4">
                         {!token && (
                             <>
                                 <Link to="/login" className="btn-primary px-4 py-1.5">Login</Link>
                                 <Link to="/signup" className="btn-secondary px-4 py-1.5">Sign Up</Link>
+                            </>
+                        )}
+                        {token && (
+                            <>
+                                <Link to="/profile" className="flex items-center gap-2 group">
+                                    <img
+                                        src={user && user.profilePhoto ? user.profilePhoto : defaultAvatar}
+                                        alt="Profile"
+                                        className="w-8 h-8 rounded-full object-cover border-2 border-blue-200 dark:border-blue-900 bg-white dark:bg-gray-900 shadow group-hover:ring-2 group-hover:ring-blue-400 transition-all"
+                                        onError={e => { e.target.onerror = null; e.target.src = defaultAvatar; }}
+                                    />
+                                    <span className="hidden lg:inline font-medium text-black dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">Profile</span>
+                                </Link>
+                                <button onClick={logout} className="btn-secondary px-4 py-1.5">Logout</button>
                             </>
                         )}
                         <button

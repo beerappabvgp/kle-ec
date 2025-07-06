@@ -8,19 +8,18 @@ export default function SignupPage() {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    async function handleSignup(form) {
+    const handleSignup = async (formData) => {
         setLoading(true);
         setError('');
         try {
-            await signup(form);
-            // Redirect to login page after successful signup, with state
-            navigate('/login', { state: { signupSuccess: true } });
+            await signup(formData.email, formData.password, formData.name);
+            setLoading(false);
+            navigate('/products');
         } catch (err) {
             setError(err.message || 'Signup failed');
-        } finally {
             setLoading(false);
         }
-    }
+    };
 
     return (
         <div className="min-h-screen w-full bg-white dark:bg-black text-black dark:text-white py-6 px-2 sm:px-4 flex items-center justify-center">

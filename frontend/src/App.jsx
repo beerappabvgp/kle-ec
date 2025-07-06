@@ -13,6 +13,9 @@ import OrdersPage from './pages/OrdersPage';
 import Footer from './components/Footer';
 import ProfilePage from './pages/ProfilePage';
 import ApiTestPage from './pages/ApiTestPage';
+import About from './pages/About';
+import Categories from './pages/Categories';
+import Contact from './pages/Contact';
 
 function App() {
   return (
@@ -31,6 +34,9 @@ function App() {
         <Route path="/orders" element={<OrdersPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/api-test" element={<ApiTestPage />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/categories" element={<Categories />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
       <Footer />
     </>

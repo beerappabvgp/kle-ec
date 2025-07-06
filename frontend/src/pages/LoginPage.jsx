@@ -12,19 +12,18 @@ export default function LoginPage() {
     const signupSuccess = location.state && location.state.signupSuccess;
     const { login } = useAuth();
 
-    async function handleLogin(form) {
+    const handleLogin = async (formData) => {
         setLoading(true);
         setError('');
         try {
-            const data = await loginApi(form);
-            login(data.data.token); // update context with the correct token
-            navigate('/');
+            await login(formData.email, formData.password);
+            setLoading(false);
+            navigate('/products');
         } catch (err) {
             setError(err.message || 'Login failed');
-        } finally {
             setLoading(false);
         }
-    }
+    };
 
     return (
         <div className="min-h-screen w-full bg-white dark:bg-black text-black dark:text-white py-6 px-2 sm:px-4 flex items-center justify-center">

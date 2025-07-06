@@ -34,4 +34,22 @@ export async function deleteProduct(id) {
 export async function rateProduct(productId, rating) {
     const res = await api.post(`/products/${productId}/rate`, { rating });
     return res.data;
+}
+
+// Get all reviews for a product
+export async function getProductReviews(productId) {
+    const res = await api.get(`/products/${productId}/reviews`);
+    return res.data;
+}
+
+// Add or update a review for a product
+export async function addOrUpdateProductReview(productId, reviewData) {
+    const res = await api.post(`/products/${productId}/reviews`, reviewData);
+    return res.data;
+}
+
+// Delete a review
+export async function deleteProductReview(productId, reviewId) {
+    const res = await api.delete(`/products/${productId}/reviews/${reviewId}`);
+    return res.data;
 } 

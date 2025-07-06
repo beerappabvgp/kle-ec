@@ -95,8 +95,8 @@ export default function LandingPage() {
                             Get the best deals with fast delivery and excellent customer service.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-                            <button className="btn-primary text-base sm:text-lg px-6 sm:px-8 py-3">Start Shopping</button>
-                            <button className="btn-secondary text-base sm:text-lg px-6 sm:px-8 py-3">Learn More</button>
+                            <button className="btn-primary text-base sm:text-lg px-6 sm:px-8 py-3" as={Link} to="/products">Start Shopping</button>
+                            <button className="btn-secondary text-base sm:text-lg px-6 sm:px-8 py-3" as={Link} to="/about">Learn More</button>
                         </div>
                     </div>
                 </div>
@@ -128,7 +128,7 @@ export default function LandingPage() {
                     </div>
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
                         {categories.map((category, idx) => (
-                            <div key={idx} className="card text-center hover:shadow-lg transition-shadow cursor-pointer">
+                            <div key={idx} className="card text-center hover:shadow-lg transition-shadow cursor-pointer" as={Link} to="/categories">
                                 <div className="text-2xl sm:text-3xl mb-1 sm:mb-3">{category.icon}</div>
                                 <h3 className="font-semibold mb-0.5 sm:mb-1 text-sm sm:text-base">{category.name}</h3>
                                 <p className="text-xs sm:text-sm">{category.count}</p>
@@ -185,10 +185,10 @@ export default function LandingPage() {
                         <div>
                             <h4 className="font-semibold mb-4">Quick Links</h4>
                             <ul className="space-y-2">
-                                <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Home</a></li>
-                                <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Products</a></li>
-                                <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">About</a></li>
-                                <li><a href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contact</a></li>
+                                <li><a href="/" as={Link} to="/" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Home</a></li>
+                                <li><a href="/products" as={Link} to="/products" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Products</a></li>
+                                <li><a href="/about" as={Link} to="/about" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">About</a></li>
+                                <li><a href="/contact" as={Link} to="/contact" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contact</a></li>
                             </ul>
                         </div>
                         <div>
