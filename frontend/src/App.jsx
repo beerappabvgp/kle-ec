@@ -12,14 +12,12 @@ import CheckoutPage from './pages/CheckoutPage';
 import OrdersPage from './pages/OrdersPage';
 import Footer from './components/Footer';
 import ProfilePage from './pages/ProfilePage';
-import ApiStatus from './components/ApiStatus';
 import ApiTestPage from './pages/ApiTestPage';
 
 function App() {
   return (
     <>
       <Navbar />
-      <ApiStatus />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
