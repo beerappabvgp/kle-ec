@@ -116,64 +116,64 @@ export default function ProductEditPage() {
                 <h1 className="text-2xl sm:text-3xl font-bold mb-6 dark:text-white text-center">Edit Product</h1>
                 {error && <div className="text-red-500 mb-4">{error}</div>}
                 <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="mb-4">
-                        <label className="block mb-1 font-medium dark:text-white">Name</label>
-                        <input type="text" name="name" value={form.name} onChange={handleChange} required className="input-field" />
+                <div className="mb-4">
+                    <label className="block mb-1 font-medium dark:text-white">Name</label>
+                    <input type="text" name="name" value={form.name} onChange={handleChange} required className="input-field" />
+                </div>
+                <div className="mb-4">
+                    <label className="block mb-1 font-medium dark:text-white">Description</label>
+                    <textarea name="description" value={form.description} onChange={handleChange} required className="input-field" />
+                </div>
+                <div className="mb-4">
+                    <label className="block mb-1 font-medium dark:text-white">Category</label>
+                    <input type="text" name="category" value={form.category} onChange={handleChange} required className="input-field" />
+                </div>
+                <div className="mb-4">
+                    <label className="block mb-1 font-medium dark:text-white">Product Images</label>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        className="input-field"
+                        ref={fileInputRef}
+                        onChange={handleImageChange}
+                        disabled={uploading || loading}
+                    />
+                    <div className="flex flex-wrap gap-3 mt-3">
+                        {existingImages.map((url, idx) => (
+                            <div key={idx} className="relative w-20 h-20 rounded-lg overflow-hidden border border-blue-400 bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                                <img src={url} alt="existing" className="object-cover w-full h-full" />
+                                <button type="button" className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs" onClick={() => handleRemoveExisting(idx)} title="Remove">
+                                    &times;
+                                </button>
+                            </div>
+                        ))}
+                        {images.map((img, idx) => (
+                            <div key={idx + existingImages.length} className="relative w-20 h-20 rounded-lg overflow-hidden border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                                <img src={URL.createObjectURL(img)} alt="preview" className="object-cover w-full h-full" />
+                                {uploading && (
+                                    <div className="absolute inset-0 bg-black/60 flex items-center justify-center text-white text-xs font-bold">
+                                        {uploadProgress[idx] || 0}%
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                        {imageURLs.map((url, idx) => (
+                            <div key={idx + existingImages.length + images.length} className="relative w-20 h-20 rounded-lg overflow-hidden border border-green-400 bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                                <img src={url} alt="uploaded" className="object-cover w-full h-full" />
+                                <span className="absolute bottom-1 right-1 bg-green-500 text-white text-xs rounded px-1">✓</span>
+                            </div>
+                        ))}
                     </div>
-                    <div className="mb-4">
-                        <label className="block mb-1 font-medium dark:text-white">Description</label>
-                        <textarea name="description" value={form.description} onChange={handleChange} required className="input-field" />
-                    </div>
-                    <div className="mb-4">
-                        <label className="block mb-1 font-medium dark:text-white">Category</label>
-                        <input type="text" name="category" value={form.category} onChange={handleChange} required className="input-field" />
-                    </div>
-                    <div className="mb-4">
-                        <label className="block mb-1 font-medium dark:text-white">Product Images</label>
-                        <input
-                            type="file"
-                            accept="image/*"
-                            multiple
-                            className="input-field"
-                            ref={fileInputRef}
-                            onChange={handleImageChange}
-                            disabled={uploading || loading}
-                        />
-                        <div className="flex flex-wrap gap-3 mt-3">
-                            {existingImages.map((url, idx) => (
-                                <div key={idx} className="relative w-20 h-20 rounded-lg overflow-hidden border border-blue-400 bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
-                                    <img src={url} alt="existing" className="object-cover w-full h-full" />
-                                    <button type="button" className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs" onClick={() => handleRemoveExisting(idx)} title="Remove">
-                                        &times;
-                                    </button>
-                                </div>
-                            ))}
-                            {images.map((img, idx) => (
-                                <div key={idx + existingImages.length} className="relative w-20 h-20 rounded-lg overflow-hidden border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
-                                    <img src={URL.createObjectURL(img)} alt="preview" className="object-cover w-full h-full" />
-                                    {uploading && (
-                                        <div className="absolute inset-0 bg-black/60 flex items-center justify-center text-white text-xs font-bold">
-                                            {uploadProgress[idx] || 0}%
-                                        </div>
-                                    )}
-                                </div>
-                            ))}
-                            {imageURLs.map((url, idx) => (
-                                <div key={idx + existingImages.length + images.length} className="relative w-20 h-20 rounded-lg overflow-hidden border border-green-400 bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
-                                    <img src={url} alt="uploaded" className="object-cover w-full h-full" />
-                                    <span className="absolute bottom-1 right-1 bg-green-500 text-white text-xs rounded px-1">✓</span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                    <div className="mb-6">
-                        <label className="block mb-1 font-medium dark:text-white">Price</label>
-                        <input type="number" name="price" value={form.price} onChange={handleChange} required min="0" step="0.01" className="input-field" />
-                    </div>
-                    <button type="submit" className="btn-primary w-full" disabled={loading || uploading}>
-                        {loading ? 'Saving...' : uploading ? 'Uploading Images...' : 'Save Changes'}
-                    </button>
-                </form>
+                </div>
+                <div className="mb-6">
+                    <label className="block mb-1 font-medium dark:text-white">Price</label>
+                    <input type="number" name="price" value={form.price} onChange={handleChange} required min="0" step="0.01" className="input-field" />
+                </div>
+                <button type="submit" className="btn-primary w-full" disabled={loading || uploading}>
+                    {loading ? 'Saving...' : uploading ? 'Uploading Images...' : 'Save Changes'}
+                </button>
+            </form>
             </div>
         </div>
     );

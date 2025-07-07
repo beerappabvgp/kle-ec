@@ -23,7 +23,7 @@ export default function SignupPage() {
 
     return (
         <div className="min-h-screen w-full bg-white dark:bg-black text-black dark:text-white py-6 px-2 sm:px-4 flex items-center justify-center">
-            <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-800">
+            <div className="w-full max-w-lg border border-gray-800 rounded-2xl p-6 sm:p-8">
                 <h1 className="text-2xl sm:text-3xl font-bold mb-6 dark:text-white text-center">Sign Up</h1>
                 <AuthForm mode="signup" onSubmit={handleSignup} loading={loading} error={error} />
             </div>
