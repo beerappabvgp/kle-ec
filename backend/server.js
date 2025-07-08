@@ -25,37 +25,8 @@ connectDB();
 // Security middleware
 app.use(helmet());
 
-// CORS configuration
-app.use(cors({
-    origin: function (origin, callback) {
-        // Allow requests with no origin (like mobile apps or curl requests)
-        if (!origin) return callback(null, true);
-
-        const allowedOrigins = [
-            'http://localhost:3000',
-            'http://localhost:5173',
-            'https://kle-ec-frontend.vercel.app',
-            'https://kle-ec-frontend.netlify.app',
-            'https://kle-ec-frontend.onrender.com',
-            'https://kle-ec.vercel.app',
-            'https://kle-ec.netlify.app',
-            'https://kle-ec.onrender.com',
-            'https://kle-ec.vercel.app'
-        ];
-
-        if (allowedOrigins.indexOf(origin) !== -1) {
-            callback(null, true);
-        } else {
-            // For development, allow all origins
-            if (process.env.NODE_ENV === 'development') {
-                callback(null, true);
-            } else {
-                callback(new Error('Not allowed by CORS'));
-            }
-        }
-    },
-    credentials: true
-}));
+// CORS configuration (allow all origins for now)
+app.use(cors());
 
 // Logging middleware
 app.use(morgan('combined'));
