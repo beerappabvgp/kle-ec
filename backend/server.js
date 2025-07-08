@@ -25,8 +25,17 @@ connectDB();
 // Security middleware
 app.use(helmet());
 
-// CORS configuration (allow all origins for now)
-app.use(cors());
+// Robust CORS configuration (allow all origins, methods, headers)
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Origin', 'X-Requested-With', 'Accept'],
+    exposedHeaders: ['Authorization'],
+    credentials: false // Set to true only if you use cookies/auth
+}));
+
+// Handle preflight requests for all routes
+app.options('*', cors());
 
 // Logging middleware
 app.use(morgan('combined'));
