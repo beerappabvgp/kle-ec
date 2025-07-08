@@ -27,6 +27,7 @@ export function CartProvider({ children }) {
             const res = await apiGetCart();
             setCart(res.data);
         } catch (err) {
+            console.error('Error loading cart:', err);
             setError('Failed to load cart');
         } finally {
             setLoading(false);

@@ -76,6 +76,16 @@ export default function Navbar() {
                         )}
                         {token && (
                             <>
+                                <Link to="/cart" className="relative flex items-center gap-2 group p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all" title="Cart">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-black dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.836l.272 1.017M6.75 6h14.25l-1.5 9H7.5m0 0L6.75 6m.75 9a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5zm10.5 0a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z" />
+                                    </svg>
+                                    {cartCount > 0 && (
+                                        <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1.5 py-0.5 font-bold min-w-[18px] text-center">
+                                            {cartCount}
+                                        </span>
+                                    )}
+                                </Link>
                                 <Link to="/profile" className="flex items-center gap-2 group">
                                     <img
                                         src={user && user.profilePhoto ? user.profilePhoto : defaultAvatar}

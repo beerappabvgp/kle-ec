@@ -26,8 +26,34 @@
             "Chip": "A17 Pro"
         },
         "isFeatured": true,
-        "rating": 4.8,
-        "reviewCount": 1250
+        "ratings": [
+            {
+                "user": "507f1f77bcf86cd799439011",
+                "rating": 5
+            },
+            {
+                "user": "507f1f77bcf86cd799439012",
+                "rating": 4
+            },
+            {
+                "user": "507f1f77bcf86cd799439013",
+                "rating": 5
+            }
+        ],
+        "reviews": [
+            {
+                "user": "507f1f77bcf86cd799439011",
+                "rating": 5,
+                "comment": "Amazing phone! The camera quality is incredible and the performance is top-notch.",
+                "createdAt": "2024-01-15T10:30:00.000Z"
+            },
+            {
+                "user": "507f1f77bcf86cd799439012",
+                "rating": 4,
+                "comment": "Great phone overall, but the battery could be better. Still highly recommend!",
+                "createdAt": "2024-01-20T14:45:00.000Z"
+            }
+        ]
     },
     {
         "name": "MacBook Air M2",
@@ -56,8 +82,30 @@
             "Chip": "M2"
         },
         "isFeatured": true,
-        "rating": 4.9,
-        "reviewCount": 890
+        "ratings": [
+            {
+                "user": "507f1f77bcf86cd799439014",
+                "rating": 5
+            },
+            {
+                "user": "507f1f77bcf86cd799439015",
+                "rating": 5
+            }
+        ],
+        "reviews": [
+            {
+                "user": "507f1f77bcf86cd799439014",
+                "rating": 5,
+                "comment": "Incredible performance and battery life. Perfect for both work and entertainment.",
+                "createdAt": "2024-01-10T09:15:00.000Z"
+            },
+            {
+                "user": "507f1f77bcf86cd799439015",
+                "rating": 5,
+                "comment": "The M2 chip is a game changer. This laptop is incredibly fast and efficient.",
+                "createdAt": "2024-01-18T16:20:00.000Z"
+            }
+        ]
     },
     {
         "name": "Sony WH-1000XM5",
@@ -86,8 +134,30 @@
             "Noise Canceling": "Yes"
         },
         "isFeatured": false,
-        "rating": 4.7,
-        "reviewCount": 567
+        "ratings": [
+            {
+                "user": "507f1f77bcf86cd799439016",
+                "rating": 4
+            },
+            {
+                "user": "507f1f77bcf86cd799439017",
+                "rating": 5
+            }
+        ],
+        "reviews": [
+            {
+                "user": "507f1f77bcf86cd799439016",
+                "rating": 4,
+                "comment": "Excellent sound quality and noise cancellation. Battery life is impressive.",
+                "createdAt": "2024-01-12T11:30:00.000Z"
+            },
+            {
+                "user": "507f1f77bcf86cd799439017",
+                "rating": 5,
+                "comment": "Best headphones I've ever owned. The noise cancellation is incredible!",
+                "createdAt": "2024-01-25T13:45:00.000Z"
+            }
+        ]
     },
     {
         "name": "Nike Air Max 270",
@@ -116,8 +186,30 @@
             "Style": "Athletic"
         },
         "isFeatured": false,
-        "rating": 4.5,
-        "reviewCount": 2340
+        "ratings": [
+            {
+                "user": "507f1f77bcf86cd799439018",
+                "rating": 4
+            },
+            {
+                "user": "507f1f77bcf86cd799439019",
+                "rating": 5
+            }
+        ],
+        "reviews": [
+            {
+                "user": "507f1f77bcf86cd799439018",
+                "rating": 4,
+                "comment": "Very comfortable shoes with great cushioning. Perfect for daily wear.",
+                "createdAt": "2024-01-08T15:20:00.000Z"
+            },
+            {
+                "user": "507f1f77bcf86cd799439019",
+                "rating": 5,
+                "comment": "Amazing comfort and style. These are my go-to shoes for everything!",
+                "createdAt": "2024-01-22T10:10:00.000Z"
+            }
+        ]
     },
     {
         "name": "Samsung 65\" QLED 4K TV",
@@ -146,7 +238,29 @@
             "Smart Features": "Tizen OS"
         },
         "isFeatured": true,
-        "rating": 4.6,
-        "reviewCount": 445
+        "ratings": [
+            {
+                "user": "507f1f77bcf86cd799439020",
+                "rating": 5
+            },
+            {
+                "user": "507f1f77bcf86cd799439021",
+                "rating": 4
+            }
+        ],
+        "reviews": [
+            {
+                "user": "507f1f77bcf86cd799439020",
+                "rating": 5,
+                "comment": "Incredible picture quality! The QLED technology really makes a difference.",
+                "createdAt": "2024-01-05T20:15:00.000Z"
+            },
+            {
+                "user": "507f1f77bcf86cd799439021",
+                "rating": 4,
+                "comment": "Great TV with excellent picture quality. Gaming performance is outstanding.",
+                "createdAt": "2024-01-16T19:30:00.000Z"
+            }
+        ]
     }
 ]

@@ -13,7 +13,7 @@
     "lint": "echo \"No linter configured\" && exit 0",
     "format": "echo \"No formatter configured\" && exit 0",
     "clean": "rm -rf node_modules package-lock.json && npm install",
-    "seed": "node scripts/seed.js",
+    "seed": "node seed.js",
     "migrate": "echo \"No migration script configured\" && exit 0"
   },
   "keywords": [],

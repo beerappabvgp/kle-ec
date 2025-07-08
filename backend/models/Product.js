@@ -127,16 +127,30 @@ ProductSchema.pre('save', function (next) {
     next();
 });
 
-// Virtual for average rating (from reviews)
+// Virtual for average rating (from both ratings and reviews)
 ProductSchema.virtual('averageRating').get(function () {
-    if (!this.reviews || this.reviews.length === 0) return 0;
-    const sum = this.reviews.reduce((acc, r) => acc + r.rating, 0);
-    return Math.round((sum / this.reviews.length) * 10) / 10;
+    const allRatings = [];
+
+    // Add ratings from the ratings array
+    if (this.ratings && this.ratings.length > 0) {
+        allRatings.push(...this.ratings.map(r => r.rating));
+    }
+
+    // Add ratings from the reviews array
+    if (this.reviews && this.reviews.length > 0) {
+        allRatings.push(...this.reviews.map(r => r.rating));
+    }
+
+    if (allRatings.length === 0) return 0;
+    const sum = allRatings.reduce((acc, rating) => acc + rating, 0);
+    return Math.round((sum / allRatings.length) * 10) / 10;
 });
 
-// Virtual for ratings count (from reviews)
+// Virtual for ratings count (from both ratings and reviews)
 ProductSchema.virtual('ratingsCount').get(function () {
-    return this.reviews ? this.reviews.length : 0;
+    const ratingsCount = this.ratings ? this.ratings.length : 0;
+    const reviewsCount = this.reviews ? this.reviews.length : 0;
+    return ratingsCount + reviewsCount;
 });
 
 // Ensure virtuals are included in toObject and toJSON

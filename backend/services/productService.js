@@ -48,7 +48,9 @@ async function createProduct(productData, userId) {
         createdBy: userId
     });
 
-    return await Product.findById(product._id).populate('createdBy', 'name email');
+    return await Product.findById(product._id)
+        .populate('createdBy', 'name email')
+        .lean({ virtuals: true });
 }
 
 async function getAllProducts(query = {}) {
@@ -117,7 +119,8 @@ async function getAllProducts(query = {}) {
         .populate('createdBy', 'name email')
         .sort(sortOptions)
         .skip(skip)
-        .limit(parseInt(limit));
+        .limit(parseInt(limit))
+        .lean({ virtuals: true });
 
     const total = await Product.countDocuments(filter);
 
@@ -134,7 +137,8 @@ async function getAllProducts(query = {}) {
 
 async function getProductById(productId) {
     const product = await Product.findById(productId)
-        .populate('createdBy', 'name email');
+        .populate('createdBy', 'name email')
+        .lean({ virtuals: true });
 
     if (!product) {
         throw new Error('Product not found');
@@ -145,7 +149,8 @@ async function getProductById(productId) {
 
 async function getProductDetails(productId) {
     const product = await Product.findById(productId)
-        .populate('createdBy', 'name email');
+        .populate('createdBy', 'name email')
+        .lean({ virtuals: true });
 
     if (!product) {
         throw new Error('Product not found');
@@ -161,7 +166,7 @@ async function getProductDetails(productId) {
         : product.price;
 
     return {
-        ...product.toObject(),
+        ...product,
         discountedPrice: Math.round(discountedPrice * 100) / 100
     };
 }
@@ -207,7 +212,9 @@ async function updateProduct(productId, updateData, userId) {
 
     await product.save();
 
-    return await Product.findById(productId).populate('createdBy', 'name email');
+    return await Product.findById(productId)
+        .populate('createdBy', 'name email')
+        .lean({ virtuals: true });
 }
 
 async function deleteProduct(productId, userId) {
@@ -259,8 +266,10 @@ async function rateProduct(productId, userId, ratingValue) {
         product.ratings.push({ user: userId, rating: ratingValue });
     }
     await product.save();
-    // Populate createdBy for consistency
-    const updated = await Product.findById(productId).populate('createdBy', 'name email');
+    // Populate createdBy for consistency and include virtuals
+    const updated = await Product.findById(productId)
+        .populate('createdBy', 'name email')
+        .lean({ virtuals: true });
     return updated;
 }
 

@@ -27,9 +27,14 @@ const addToCart = async (req, res) => {
 // Get current user's cart
 const getCart = async (req, res) => {
     try {
-        const cart = await Cart.findOne({ user: req.user.id }).populate('items.product');
-        res.status(200).json({ success: true, data: cart || { items: [] } });
+        let cart = await Cart.findOne({ user: req.user.id }).populate('items.product');
+        if (!cart) {
+            // Create an empty cart for the user
+            cart = await Cart.create({ user: req.user.id, items: [] });
+        }
+        res.status(200).json({ success: true, data: cart });
     } catch (error) {
+        console.error('Error in getCart:', error);
         res.status(500).json({ success: false, message: error.message });
     }
 };
