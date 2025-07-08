@@ -47,10 +47,9 @@ async function createProduct(productData, userId) {
         ...productData,
         createdBy: userId
     });
-
-    return await Product.findById(product._id)
-        .populate('createdBy', 'name email')
-        .lean({ virtuals: true });
+    const created = await Product.findById(product._id)
+        .populate('createdBy', 'name email');
+    return created.toObject({ virtuals: true });
 }
 
 async function getAllProducts(query = {}) {
@@ -115,12 +114,12 @@ async function getAllProducts(query = {}) {
     const sortOptions = {};
     sortOptions[sortBy] = sortOrder === 'desc' ? -1 : 1;
 
-    const products = await Product.find(filter)
+    const productsDocs = await Product.find(filter)
         .populate('createdBy', 'name email')
         .sort(sortOptions)
         .skip(skip)
-        .limit(parseInt(limit))
-        .lean({ virtuals: true });
+        .limit(parseInt(limit));
+    const products = productsDocs.map(p => p.toObject({ virtuals: true }));
 
     const total = await Product.countDocuments(filter);
 
@@ -136,35 +135,28 @@ async function getAllProducts(query = {}) {
 }
 
 async function getProductById(productId) {
-    const product = await Product.findById(productId)
-        .populate('createdBy', 'name email')
-        .lean({ virtuals: true });
-
-    if (!product) {
+    const productDoc = await Product.findById(productId)
+        .populate('createdBy', 'name email');
+    if (!productDoc) {
         throw new Error('Product not found');
     }
-
-    return product;
+    return productDoc.toObject({ virtuals: true });
 }
 
 async function getProductDetails(productId) {
-    const product = await Product.findById(productId)
-        .populate('createdBy', 'name email')
-        .lean({ virtuals: true });
-
-    if (!product) {
+    const productDoc = await Product.findById(productId)
+        .populate('createdBy', 'name email');
+    if (!productDoc) {
         throw new Error('Product not found');
     }
-
-    if (!product.isActive) {
+    if (!productDoc.isActive) {
         throw new Error('Product is not available');
     }
-
+    const product = productDoc.toObject({ virtuals: true });
     // Calculate discounted price
     const discountedPrice = product.originalPrice
         ? product.originalPrice * (1 - product.discountPercentage / 100)
         : product.price;
-
     return {
         ...product,
         discountedPrice: Math.round(discountedPrice * 100) / 100
@@ -212,9 +204,9 @@ async function updateProduct(productId, updateData, userId) {
 
     await product.save();
 
-    return await Product.findById(productId)
-        .populate('createdBy', 'name email')
-        .lean({ virtuals: true });
+    const updated = await Product.findById(productId)
+        .populate('createdBy', 'name email');
+    return updated.toObject({ virtuals: true });
 }
 
 async function deleteProduct(productId, userId) {
@@ -266,11 +258,9 @@ async function rateProduct(productId, userId, ratingValue) {
         product.ratings.push({ user: userId, rating: ratingValue });
     }
     await product.save();
-    // Populate createdBy for consistency and include virtuals
     const updated = await Product.findById(productId)
-        .populate('createdBy', 'name email')
-        .lean({ virtuals: true });
-    return updated;
+        .populate('createdBy', 'name email');
+    return updated.toObject({ virtuals: true });
 }
 
 async function getReviews(productId) {
