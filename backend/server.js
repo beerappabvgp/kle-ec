@@ -25,9 +25,22 @@ connectDB();
 // Security middleware
 app.use(helmet());
 
-// Robust CORS configuration (allow all origins, methods, headers)
+// Robust CORS configuration (allow only specific origins)
+const allowedOrigins = [
+    'https://kle-ec.vercel.app',
+    'http://localhost:3000', // for local dev
+];
+
 app.use(cors({
-    origin: '*',
+    origin: function (origin, callback) {
+        // allow requests with no origin (like mobile apps, curl, etc.)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            return callback(null, true);
+        } else {
+            return callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Origin', 'X-Requested-With', 'Accept'],
     exposedHeaders: ['Authorization'],
