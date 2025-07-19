@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { createPaymentOrder, verifyPayment } from '../api/orders';
-import TestPaymentInfo from '../components/TestPaymentInfo';
 import { useToast } from '../components/Toast';
 import { getErrorMessage } from '../utils/errorHandler';
 
@@ -104,10 +103,10 @@ export default function CheckoutPage() {
 
     if (!cart || cart.items.length === 0) {
         return (
-            <div className="min-h-screen w-full bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-white flex items-center justify-center px-4">
+            <div className="min-h-screen w-full bg-white dark:bg-black text-black dark:text-white flex items-center justify-center px-4">
                 <div className="text-center max-w-md">
                     <div className="mb-6">
-                        <div className="w-20 h-20 mx-auto mb-4 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center">
+                        <div className="w-20 h-20 mx-auto mb-4 bg-gray-200 dark:bg-gray-800 rounded-full flex items-center justify-center">
                             <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                             </svg>
@@ -127,11 +126,11 @@ export default function CheckoutPage() {
     }
 
     return (
-        <div className="min-h-screen w-full bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-white py-8 px-4">
+        <div className="min-h-screen w-full bg-white dark:bg-black text-black dark:text-white py-8 px-4">
             <div className="max-w-6xl mx-auto">
                 {/* Header */}
                 <div className="text-center mb-8">
-                    <h1 className="text-3xl sm:text-4xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    <h1 className="text-3xl sm:text-4xl font-bold mb-2 text-blue-600 dark:text-blue-400">
                         Secure Checkout
                     </h1>
                     <p className="text-gray-600 dark:text-gray-400 text-lg">
@@ -142,8 +141,8 @@ export default function CheckoutPage() {
                 <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
                     {/* Shipping Address - Takes 2 columns on xl screens */}
                     <div className="xl:col-span-2">
-                        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-                            <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-8 py-6">
+                        <div className="bg-white dark:bg-black rounded-2xl shadow-xl border border-gray-200 dark:border-gray-800 overflow-hidden">
+                            <div className="bg-blue-600 dark:bg-blue-600 px-8 py-6">
                                 <h2 className="text-xl font-bold text-white flex items-center gap-3">
                                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -183,7 +182,7 @@ export default function CheckoutPage() {
                                                 name="name"
                                                 value={shippingAddress.name}
                                                 onChange={handleAddressChange}
-                                                className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                                className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-black text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                                                 placeholder="Enter your full name"
                                                 required
                                             />
@@ -206,7 +205,7 @@ export default function CheckoutPage() {
                                                 value={shippingAddress.address}
                                                 onChange={handleAddressChange}
                                                 rows={3}
-                                                className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none"
+                                                className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-black text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none"
                                                 placeholder="Enter your complete address"
                                                 required
                                             />
@@ -224,7 +223,7 @@ export default function CheckoutPage() {
                                                 name="city"
                                                 value={shippingAddress.city}
                                                 onChange={handleAddressChange}
-                                                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-black text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                                                 placeholder="Enter city name"
                                                 required
                                             />
@@ -238,7 +237,7 @@ export default function CheckoutPage() {
                                                 name="state"
                                                 value={shippingAddress.state}
                                                 onChange={handleAddressChange}
-                                                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-black text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                                                 placeholder="Enter state name"
                                                 required
                                             />
@@ -256,7 +255,7 @@ export default function CheckoutPage() {
                                                 name="zipCode"
                                                 value={shippingAddress.zipCode}
                                                 onChange={handleAddressChange}
-                                                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-black text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                                                 placeholder="Enter ZIP code"
                                                 required
                                             />
@@ -276,7 +275,7 @@ export default function CheckoutPage() {
                                                     name="phone"
                                                     value={shippingAddress.phone}
                                                     onChange={handleAddressChange}
-                                                    className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                                    className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-black text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                                                     placeholder="Enter phone number"
                                                     required
                                                 />
@@ -290,8 +289,8 @@ export default function CheckoutPage() {
 
                     {/* Order Summary - Takes 1 column on xl screens */}
                     <div className="xl:col-span-1">
-                        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden sticky top-8">
-                            <div className="bg-gradient-to-r from-green-600 to-emerald-600 px-6 py-4">
+                        <div className="bg-white dark:bg-black rounded-2xl shadow-xl border border-gray-200 dark:border-gray-800 overflow-hidden sticky top-8">
+                            <div className="bg-green-600 dark:bg-green-600 px-6 py-4">
                                 <h2 className="text-lg font-bold text-white flex items-center gap-2">
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -304,16 +303,16 @@ export default function CheckoutPage() {
                                 {/* Cart Items */}
                                 <div className="space-y-4 mb-6">
                                     {cart.items.map(item => (
-                                        <div key={item.product._id} className="flex items-center gap-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl">
+                                        <div key={item.product._id} className="flex items-center gap-4 p-3 bg-gray-50 dark:bg-gray-900 rounded-xl">
                                             <div className="flex-shrink-0">
                                                 {item.product.images && item.product.images.length > 0 ? (
                                                     <img
                                                         src={item.product.images[0]}
                                                         alt={item.product.name}
-                                                        className="w-16 h-16 object-cover rounded-lg bg-white dark:bg-gray-600 shadow-sm"
+                                                        className="w-16 h-16 object-cover rounded-lg bg-white dark:bg-gray-800 shadow-sm"
                                                     />
                                                 ) : (
-                                                    <div className="w-16 h-16 flex items-center justify-center rounded-lg bg-gray-200 dark:bg-gray-600 text-gray-500 dark:text-gray-400">
+                                                    <div className="w-16 h-16 flex items-center justify-center rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-500 dark:text-gray-400">
                                                         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                                         </svg>
@@ -338,7 +337,7 @@ export default function CheckoutPage() {
                                 </div>
 
                                 {/* Total */}
-                                <div className="border-t border-gray-200 dark:border-gray-600 pt-4 mb-6">
+                                <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mb-6">
                                     <div className="flex justify-between items-center text-lg font-bold">
                                         <span className="text-gray-700 dark:text-gray-300">Total Amount:</span>
                                         <span className="text-2xl text-green-600 dark:text-green-400">
@@ -347,16 +346,11 @@ export default function CheckoutPage() {
                                     </div>
                                 </div>
 
-                                {/* Test Mode Information */}
-                                <div className="mb-6">
-                                    <TestPaymentInfo />
-                                </div>
-
                                 {/* Payment Button */}
                                 <button
                                     onClick={handlePayment}
                                     disabled={loading}
-                                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 disabled:transform-none disabled:cursor-not-allowed"
+                                    className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 disabled:transform-none disabled:cursor-not-allowed"
                                 >
                                     {loading ? (
                                         <div className="flex items-center justify-center gap-2">

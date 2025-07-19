@@ -36,11 +36,12 @@ export default function Navbar() {
     }
 
     const navLinks = [
-        { to: '/', label: 'Home' },
-        { to: '/products', label: 'Products' },
-        { to: '/categories', label: 'Categories' },
-        { to: '/about', label: 'About' },
-        { to: '/contact', label: 'Contact' },
+        { to: '/', label: 'Home', icon: '🏠' },
+        { to: '/products', label: 'Shop Products', icon: '🛍️' },
+        { to: '/categories', label: 'Categories', icon: '📂' },
+        { to: '/orders', label: 'My Orders', icon: '📦' },
+        { to: '/about', label: 'About Us', icon: 'ℹ️' },
+        { to: '/contact', label: 'Contact', icon: '📞' },
     ];
 
     return (
@@ -57,13 +58,17 @@ export default function Navbar() {
                             <Link
                                 key={link.to}
                                 to={link.to}
-                                className={`text-base font-medium transition-colors px-2 py-1 rounded-lg ${location.pathname === link.to ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' : 'text-black dark:text-white hover:bg-blue-50 dark:hover:bg-blue-900/40 hover:text-blue-600 dark:hover:text-blue-400'}`}
+                                className={`text-base font-medium transition-colors px-3 py-2 rounded-lg flex items-center gap-2 ${location.pathname === link.to ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' : 'text-black dark:text-white hover:bg-blue-50 dark:hover:bg-blue-900/40 hover:text-blue-600 dark:hover:text-blue-400'}`}
                             >
+                                <span className="text-sm">{link.icon}</span>
                                 {link.label}
                             </Link>
                         ))}
                         {token && (
-                            <Link to="/products/new" className="btn-primary text-base py-1.5 px-4">Add Product</Link>
+                            <Link to="/products/new" className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors text-base flex items-center gap-2">
+                                <span>➕</span>
+                                Add Product
+                            </Link>
                         )}
                     </div>
                     {/* Auth + Cart + Dark Mode Buttons (Desktop) */}
@@ -140,14 +145,18 @@ export default function Navbar() {
                             <Link
                                 key={link.to}
                                 to={link.to}
-                                className={`block text-lg font-medium px-2 py-3 rounded-lg ${location.pathname === link.to ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' : 'text-black dark:text-white hover:bg-blue-50 dark:hover:bg-blue-900/40 hover:text-blue-600 dark:hover:text-blue-400'}`}
+                                className={`block text-lg font-medium px-3 py-3 rounded-lg flex items-center gap-3 ${location.pathname === link.to ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' : 'text-black dark:text-white hover:bg-blue-50 dark:hover:bg-blue-900/40 hover:text-blue-600 dark:hover:text-blue-400'}`}
                                 onClick={() => setMenuOpen(false)}
                             >
+                                <span className="text-lg">{link.icon}</span>
                                 {link.label}
                             </Link>
                         ))}
                         {token && (
-                            <Link to="/products/new" className="block btn-primary w-full text-center mt-2" onClick={() => setMenuOpen(false)}>Add Product</Link>
+                            <Link to="/products/new" className="block bg-green-600 hover:bg-green-700 text-white font-semibold w-full text-center mt-2 py-3 rounded-lg transition-colors flex items-center justify-center gap-2" onClick={() => setMenuOpen(false)}>
+                                <span>➕</span>
+                                Add Product
+                            </Link>
                         )}
                         {token && (
                             <Link to="/cart" className="block w-full text-center mt-2" onClick={() => setMenuOpen(false)}>

@@ -72,19 +72,19 @@ function ToastContainer() {
     const { toasts, removeToast } = useToast();
 
     const getToastStyles = (type) => {
-        const baseStyles = "flex items-start p-4 rounded-lg shadow-lg border-l-4 transform transition-all duration-300 ease-in-out";
+        const baseStyles = "flex items-start p-4 rounded-lg shadow-xl border-l-4 transform transition-all duration-300 ease-in-out";
 
         switch (type) {
             case 'success':
-                return `${baseStyles} bg-green-50 dark:bg-green-900/20 border-green-500 text-green-800 dark:text-green-200`;
+                return `${baseStyles} bg-white dark:bg-black border-green-500 text-green-800 dark:text-green-400 shadow-green-100 dark:shadow-green-900/20`;
             case 'error':
-                return `${baseStyles} bg-red-50 dark:bg-red-900/20 border-red-500 text-red-800 dark:text-red-200`;
+                return `${baseStyles} bg-white dark:bg-black border-red-500 text-red-800 dark:text-red-400 shadow-red-100 dark:shadow-red-900/20`;
             case 'warning':
-                return `${baseStyles} bg-yellow-50 dark:bg-yellow-900/20 border-yellow-500 text-yellow-800 dark:text-yellow-200`;
+                return `${baseStyles} bg-white dark:bg-black border-yellow-500 text-yellow-800 dark:text-yellow-400 shadow-yellow-100 dark:shadow-yellow-900/20`;
             case 'info':
-                return `${baseStyles} bg-blue-50 dark:bg-blue-900/20 border-blue-500 text-blue-800 dark:text-blue-200`;
+                return `${baseStyles} bg-white dark:bg-black border-blue-500 text-blue-800 dark:text-blue-400 shadow-blue-100 dark:shadow-blue-900/20`;
             default:
-                return `${baseStyles} bg-gray-50 dark:bg-gray-900/20 border-gray-500 text-gray-800 dark:text-gray-200`;
+                return `${baseStyles} bg-white dark:bg-black border-gray-500 text-gray-800 dark:text-gray-400 shadow-gray-100 dark:shadow-gray-900/20`;
         }
     };
 
