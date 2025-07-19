@@ -16,10 +16,12 @@ import ApiTestPage from './pages/ApiTestPage';
 import About from './pages/About';
 import Categories from './pages/Categories';
 import Contact from './pages/Contact';
+import CartToastConnector from './components/CartToastConnector';
 
 function App() {
   return (
     <>
+      <CartToastConnector />
       <Navbar />
       <Routes>
         <Route path="/" element={<LandingPage />} />

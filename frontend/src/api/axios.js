@@ -26,6 +26,13 @@ api.interceptors.response.use(
     },
     (error) => {
         console.error('API error:', error.response?.status, error.config?.url, error.message);
+
+        // Handle 401 errors globally - redirect to login
+        if (error.response?.status === 401) {
+            localStorage.removeItem('token');
+            window.location.href = '/login';
+        }
+
         return Promise.reject(error);
     }
 );

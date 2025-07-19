@@ -3,6 +3,8 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { getProduct, deleteProduct, rateProduct, getProductReviews, addOrUpdateProductReview, deleteProductReview } from '../api/products';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
+import { useToast } from '../components/Toast';
+import { getErrorMessage } from '../utils/errorHandler';
 import defaultProductImage from '../assets/default-product.svg';
 
 export default function ProductDetailPage() {
@@ -14,6 +16,7 @@ export default function ProductDetailPage() {
     const navigate = useNavigate();
     const { token } = useAuth();
     const { addToCart, loading: cartLoading } = useCart();
+    const { showSuccess, showError, showWarning } = useToast();
     const [submittingRating, setSubmittingRating] = useState(false);
     const [userRating, setUserRating] = useState(null);
     const [hoverRating, setHoverRating] = useState(null);

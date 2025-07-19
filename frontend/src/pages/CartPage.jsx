@@ -1,13 +1,30 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
 import { Link } from 'react-router-dom';
+import { useToast } from '../components/Toast';
 
 export default function CartPage() {
     const { cart, loading, error, updateCartItem, removeCartItem, clearCart } = useCart();
+    const { showSuccess, showError, showWarning } = useToast();
 
     const handleQuantityChange = (productId, value) => {
         const quantity = parseInt(value, 10);
-        if (quantity > 0) updateCartItem(productId, quantity);
+        if (quantity > 0) {
+            updateCartItem(productId, quantity);
+            showSuccess('Cart Updated', 'Item quantity has been updated successfully.');
+        }
+    };
+
+    const handleRemoveItem = (productId) => {
+        removeCartItem(productId);
+        showSuccess('Item Removed', 'Item has been removed from your cart.');
+    };
+
+    const handleClearCart = () => {
+        if (window.confirm('Are you sure you want to clear your cart?')) {
+            clearCart();
+            showSuccess('Cart Cleared', 'Your cart has been cleared successfully.');
+        }
     };
 
     const total = cart?.items?.reduce((sum, item) => sum + (item.product.price * item.quantity), 0) || 0;
@@ -62,7 +79,7 @@ export default function CartPage() {
                                     {/* Right: Price + Remove */}
                                     <div className="flex flex-col items-end gap-3 min-w-[110px] sm:min-w-[140px]">
                                         <div className="text-blue-600 dark:text-blue-400 font-bold text-lg whitespace-nowrap">${item.product.price}</div>
-                                        <button onClick={() => removeCartItem(item.product._id)} className="bg-red-500 hover:bg-red-600 text-white rounded-full px-4 py-1.5 text-sm font-medium shadow-sm transition-transform">Remove</button>
+                                        <button onClick={() => handleRemoveItem(item.product._id)} className="bg-red-500 hover:bg-red-600 text-white rounded-full px-4 py-1.5 text-sm font-medium shadow-sm transition-transform">Remove</button>
                                     </div>
                                 </div>
                             ))}
@@ -70,7 +87,7 @@ export default function CartPage() {
                         <div className="flex flex-col sm:flex-row justify-between items-center gap-6 mt-8">
                             <div className="flex-1 flex flex-col items-center sm:items-start">
                                 <div className="text-xl font-bold dark:text-white mb-2">Total: <span className="text-blue-600 dark:text-blue-400">${total.toFixed(2)}</span></div>
-                                <button onClick={clearCart} className="mt-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 px-6 py-2 rounded-full font-medium hover:bg-gray-200 dark:hover:bg-gray-700 shadow-sm transition-all">Clear Cart</button>
+                                <button onClick={handleClearCart} className="mt-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 px-6 py-2 rounded-full font-medium hover:bg-gray-200 dark:hover:bg-gray-700 shadow-sm transition-all">Clear Cart</button>
                             </div>
                             <Link to="/checkout" className="btn-primary rounded-full py-3 px-8 text-lg font-semibold shadow hover:scale-105 transition-transform text-center w-full sm:w-auto">Proceed to Checkout</Link>
                         </div>

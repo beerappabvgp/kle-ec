@@ -7,6 +7,7 @@ import {
     clearCart as apiClearCart
 } from '../api/cart';
 import { useAuth } from './AuthContext';
+import { getErrorMessage } from '../utils/errorHandler';
 
 const CartContext = createContext();
 
@@ -15,6 +16,7 @@ export function CartProvider({ children }) {
     const [cart, setCart] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [toastCallback, setToastCallback] = useState(null);
 
     async function refreshCart() {
         if (!token) {
@@ -28,7 +30,11 @@ export function CartProvider({ children }) {
             setCart(res.data);
         } catch (err) {
             console.error('Error loading cart:', err);
-            setError('Failed to load cart');
+            const errorInfo = getErrorMessage(err);
+            setError(errorInfo.message);
+            if (toastCallback) {
+                toastCallback.showError('Failed to Load Cart', errorInfo.message);
+            }
         } finally {
             setLoading(false);
         }
@@ -60,9 +66,16 @@ export function CartProvider({ children }) {
         try {
             await apiAddToCart(productId, quantity);
             if (!updated) await refreshCart();
+            if (toastCallback) {
+                toastCallback.showSuccess('Added to Cart', 'Product has been added to your cart successfully.');
+            }
         } catch (err) {
-            setError('Failed to add to cart');
+            const errorInfo = getErrorMessage(err);
+            setError(errorInfo.message);
             if (prevCart) setCart(prevCart);
+            if (toastCallback) {
+                toastCallback.showError('Failed to Add to Cart', errorInfo.message);
+            }
         }
     }
 
@@ -110,7 +123,17 @@ export function CartProvider({ children }) {
     }
 
     return (
-        <CartContext.Provider value={{ cart, loading, error, addToCart, updateCartItem, removeCartItem, clearCart, refreshCart }}>
+        <CartContext.Provider value={{
+            cart,
+            loading,
+            error,
+            addToCart,
+            updateCartItem,
+            removeCartItem,
+            clearCart,
+            refreshCart,
+            setToastCallback
+        }}>
             {children}
         </CartContext.Provider>
     );

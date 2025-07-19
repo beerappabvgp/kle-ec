@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import { testAPIConnection, testProductsAPI } from '../utils/apiTest';
+import { useToast } from '../components/Toast';
+import { getErrorMessage } from '../utils/errorHandler';
 
 export default function ProductListPage() {
     const [products, setProducts] = useState([]);
@@ -12,6 +14,7 @@ export default function ProductListPage() {
     const navigate = useNavigate();
     const { token } = useAuth();
     const { addToCart, loading: cartLoading } = useCart();
+    const { showSuccess, showError, showWarning } = useToast();
     const [search, setSearch] = useState('');
     const [searching, setSearching] = useState(false);
     const searchTimeout = useRef();
@@ -28,7 +31,9 @@ export default function ProductListPage() {
             setProducts(res.data || res.products || []);
         } catch (err) {
             console.error('Error fetching products:', err);
-            setError('Failed to load products');
+            const errorInfo = getErrorMessage(err);
+            setError(errorInfo.message);
+            showError('Failed to Load Products', errorInfo.message);
         } finally {
             setLoading(false);
         }

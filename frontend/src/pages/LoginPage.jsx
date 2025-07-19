@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import AuthForm from '../components/AuthForm';
 import { login as loginApi } from '../api/auth';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../components/Toast';
+import { getErrorMessage } from '../utils/errorHandler';
 
 export default function LoginPage() {
     const [loading, setLoading] = useState(false);
@@ -11,6 +13,7 @@ export default function LoginPage() {
     const location = useLocation();
     const signupSuccess = location.state && location.state.signupSuccess;
     const { login } = useAuth();
+    const { showSuccess, showError } = useToast();
 
     const handleLogin = async (formData) => {
         setLoading(true);
@@ -20,9 +23,12 @@ export default function LoginPage() {
             const { token } = res.data;
             await login(token);
             setLoading(false);
+            showSuccess('Welcome Back!', 'You have been logged in successfully.');
             navigate('/products');
         } catch (err) {
-            setError(err.message || 'Login failed');
+            const errorInfo = getErrorMessage(err);
+            setError(errorInfo.message);
+            showError(errorInfo.title, errorInfo.message);
             setLoading(false);
         }
     };
@@ -33,10 +39,18 @@ export default function LoginPage() {
                 <h1 className="text-2xl sm:text-3xl font-bold mb-6 dark:text-white text-center">Login</h1>
                 {signupSuccess && (
                     <div className="mb-4 p-3 rounded bg-green-100 text-green-800 text-center dark:bg-green-900 dark:text-green-200">
-                        Signup successful! Please log in.
+                        ✅ Account created successfully! Please log in with your credentials.
                     </div>
                 )}
                 <AuthForm mode="login" onSubmit={handleLogin} loading={loading} error={error} />
+                <div className="mt-6 text-center">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                        Don't have an account?{' '}
+                        <Link to="/signup" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+                            Sign up here
+                        </Link>
+                    </p>
+                </div>
             </div>
         </div>
     );

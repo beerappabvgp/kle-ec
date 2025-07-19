@@ -61,7 +61,7 @@ export default function ProfilePage() {
     return (
         <div className="min-h-screen w-full bg-white dark:bg-black text-black dark:text-white py-6 px-2 sm:px-4">
             <div className="max-w-2xl mx-auto">
-                <h1 className="text-2xl sm:text-3xl font-bold mb-6 dark:text-white">My Profile</h1>
+                <h1 className="text-2xl sm:text-3xl font-bold mb-6 dark:text-white">{user?.name ? `${user.name}'s Profile` : 'My Profile'}</h1>
                 <div className="mb-6 flex flex-col items-center">
                     <img
                         src={photoURL && photoURL.startsWith('data:') ? photoURL : (photoURL ? photoURL : defaultAvatar)}

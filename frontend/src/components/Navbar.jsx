@@ -93,7 +93,9 @@ export default function Navbar() {
                                         className="w-8 h-8 rounded-full object-cover border-2 border-blue-200 dark:border-blue-900 bg-white dark:bg-gray-900 shadow group-hover:ring-2 group-hover:ring-blue-400 transition-all"
                                         onError={e => { e.target.onerror = null; e.target.src = defaultAvatar; }}
                                     />
-                                    <span className="hidden lg:inline font-medium text-black dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">Profile</span>
+                                    <span className="hidden lg:inline font-medium text-black dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                                        {user?.name || 'Profile'}
+                                    </span>
                                 </Link>
                                 <button onClick={logout} className="btn-secondary px-4 py-1.5">Logout</button>
                             </>
@@ -166,7 +168,7 @@ export default function Navbar() {
                                         className="w-7 h-7 rounded-full object-cover border-2 border-blue-200 dark:border-blue-900 bg-white dark:bg-gray-900 shadow"
                                         onError={e => { e.target.onerror = null; e.target.src = defaultAvatar; }}
                                     />
-                                    Profile
+                                    {user?.name || 'Profile'}
                                 </span>
                             </Link>
                         )}
