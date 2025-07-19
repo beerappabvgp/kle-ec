@@ -8,7 +8,10 @@ export async function login({ email, password }) {
 }
 
 export async function signup({ name, email, password }) {
+    console.log('Sending signup request to:', '/auth/register');
+    console.log('Request data:', { name, email, password: '***' });
     const res = await api.post('/auth/register', { name, email, password });
+    console.log('Signup response:', res.data);
     return res.data;
 }
 

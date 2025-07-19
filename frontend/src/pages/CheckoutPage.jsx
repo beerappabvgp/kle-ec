@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { createPaymentOrder, verifyPayment } from '../api/orders';
+import TestPaymentInfo from '../components/TestPaymentInfo';
 
 export default function CheckoutPage() {
     const { cart } = useCart();
@@ -77,6 +78,10 @@ export default function CheckoutPage() {
                 },
                 theme: {
                     color: '#3B82F6'
+                },
+                notes: {
+                    original_amount: paymentOrder.data.originalAmount?.toString(),
+                    test_mode: paymentOrder.data.isTestMode?.toString()
                 }
             };
 
@@ -206,6 +211,9 @@ export default function CheckoutPage() {
                             <span>Total:</span>
                             <span className="text-2xl text-blue-600 dark:text-blue-400">${total.toFixed(2)}</span>
                         </div>
+                        
+                        {/* Test Mode Information */}
+                        <TestPaymentInfo />
                         <button
                             onClick={handlePayment}
                             disabled={loading}
